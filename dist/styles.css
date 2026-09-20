@@ -43,3 +43,6 @@ input,select,textarea{border:1px solid #ddd9ee;border-radius:15px;min-height:48p
 @media print{.guide-page{background:#fff}.guide-page .topbar,.guide-index,.guide-cta,.guide-final,.guide-page .site-footer{display:none!important}.guide-main{width:100%;margin:0}.guide-hero,.guide-section{box-shadow:none;break-inside:avoid;margin:0 0 14px;padding:18px}.guide-hero{grid-template-columns:1fr}.guide-flow{display:none}.guide-card-grid,.guide-steps{gap:7px}.guide-section>h2{font-size:23px;margin-bottom:13px}.guide-card-grid article,.guide-steps article{padding:10px}.skill-note a{display:none}}
 .guide-flow{grid-template-columns:1fr auto 1fr auto 1fr auto 1fr}.guide-flow div:nth-of-type(4){grid-column:auto}
 @media(max-width:800px){.guide-flow{grid-template-columns:1fr}.guide-flow b{transform:rotate(90deg)}}
+.mode-help{margin:-16px 3px 20px;color:#d8d2f4;font-size:12px;line-height:1.45}.reset-dialog{width:min(540px,calc(100% - 28px))}.reset-actions{justify-content:flex-end}.reset-actions .ghost{background:#fff}
+html,body{max-width:100%;overflow-x:hidden}.panel h1{overflow-wrap:anywhere}.resource-card{max-width:100%}
+@media(max-width:600px){.form-actions{width:100%;gap:10px;z-index:12}.form-actions .primary{flex:0 0 auto;margin-left:auto}.mode-help{max-width:330px;margin-bottom:16px}.panel h1{font-size:clamp(28px,8vw,32px)}}

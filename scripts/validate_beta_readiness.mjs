@@ -14,6 +14,9 @@ const required = [
   ['independent-project notice', files.html, 'No es una web oficial de la Junta de Andalucía'],
   ['creator credit', files.html, 'Creada por Teacher MikeSL'],
   ['public user guide', files.html, 'guia.html'],
+  ['mode explanation', files.html, 'id="modeHelp"'],
+  ['accessible reset confirmation', files.html, 'id="resetDialog"'],
+  ['non-native reset flow', files.app, "$('#resetDialog')"],
   ['professional review reminder', files.html, 'professionalReminder'],
   ['prompt schema marker', files.app, '[PROMPTDOCENTES]'],
   ['prompt schema version', files.app, 'schema_version: 1.0'],
@@ -34,7 +37,8 @@ const required = [
 const failures = required.filter(([, content, token]) => !content.includes(token));
 const forbidden = [
   ['browser storage', /\b(?:localStorage|sessionStorage|indexedDB)\b/],
-  ['outbound request API', /\b(?:fetch|XMLHttpRequest)\s*\(/]
+  ['outbound request API', /\b(?:fetch|XMLHttpRequest)\s*\(/],
+  ['native reset confirmation', /\bconfirm\s*\(/]
 ].filter(([, pattern]) => pattern.test(files.app));
 
 if (!existsSync(new URL('../dist/downloads/promptdocentes-recursos-beta.zip', import.meta.url))) {
