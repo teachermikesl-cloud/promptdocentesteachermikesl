@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Crea prompts educativos completos, inclusivos y conectados con el currículo de Andalucía.">
+  <meta name="color-scheme" content="light">
+  <title>PromptDocentes · Diseña mejores recursos con IA</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x2='1' y2='1'%3E%3Cstop stop-color='%235b34e6'/%3E%3Cstop offset='.55' stop-color='%23872ee8'/%3E%3Cstop offset='1' stop-color='%23ff5d76'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='17' fill='url(%23g)'/%3E%3Cpath d='M21 45l5-20 19-7-6 20-18 7zm8-10 7-3 3-7-7 3-3 7z' fill='white'/%3E%3Cpath d='M17 17l2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5z' fill='%23ffd45c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="PromptDocentes, inicio">
+        <span class="brand-mark" aria-hidden="true">🪄</span>
+        <span><strong>Prompt<span>Docentes</span></strong><small data-i18n="tagline">Tu idea de aula, bien explicada a la IA</small></span>
+      </a>
+      <div class="top-actions">
+        <span class="beta-badge" data-i18n="betaBadge">🧪 Beta pública · v0.9</span>
+        <div class="andalucia-pill">☀️ <span>Andalucía</span></div>
+        <div class="privacy-pill"><span></span><span data-i18n="private">Tus datos no salen de este dispositivo</span></div>
+        <button class="info-btn" id="projectInfoBtn" type="button" aria-haspopup="dialog" data-i18n="projectInfo">Estado y fuentes</button>
+        <button class="lang-btn" id="langBtn" type="button" aria-label="Cambiar idioma">EN</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="rail" aria-label="Progreso">
+        <div class="mode-switch" role="group" aria-label="Modo del formulario">
+          <button type="button" class="active" data-mode="quick" data-i18n="quick">Rápido</button>
+          <button type="button" data-mode="complete" data-i18n="complete">Completo</button>
+        </div>
+        <nav class="steps" id="steps"></nav>
+        <div class="rail-note">
+          <span aria-hidden="true">🛡️</span>
+          <p><strong data-i18n="privacyTitle">Privacidad desde el diseño</strong><br><span data-i18n="privacyNote">No escribas nombres ni datos identificativos del alumnado.</span></p>
+        </div>
+      </aside>
+
+      <section class="builder">
+        <div class="progress-line"><span id="progressFill"></span></div>
+        <form id="promptForm" novalidate>
+          <section class="panel active" data-step="0">
+            <div class="panel-heading">
+              <span class="eyebrow" data-i18n="step1">Paso 1 de 7</span>
+              <h1 data-i18n="chooseResource">¿Qué quieres preparar hoy?</h1>
+              <p data-i18n="chooseResourceHelp">Elige un recurso. Ajustaremos las preguntas y las recomendaciones.</p>
+            </div>
+            <div class="category-tabs" id="categoryTabs" role="tablist"></div>
+            <div class="resource-grid" id="resourceGrid"></div>
+          </section>
+
+          <section class="panel" data-step="1">
+            <div class="panel-heading">
+              <span class="eyebrow" data-i18n="step2">Paso 2 de 7</span>
+              <h1 data-i18n="contextTitle">Sitúa a la IA en tu aula</h1>
+              <p data-i18n="contextHelp">La misma actividad cambia mucho según la etapa, la materia y el grupo.</p>
+            </div>
+            <div class="form-grid">
+              <label><span data-i18n="education">Enseñanza</span><select name="education" id="education" required></select></label>
+              <label><span data-i18n="level">Curso o nivel</span><select name="level" id="level" required disabled><option value="">Selecciona primero una enseñanza</option></select><input name="levelOther" id="levelOther" placeholder="Especifica el curso o nivel" hidden></label>
+              <label id="fpFamilyWrap" hidden><span>Familia profesional</span><select name="fpFamily" id="fpFamily" disabled><option value="">Selecciona primero el grado y curso</option></select></label>
+              <label class="wide" id="fpTitleWrap" hidden><span>Título o curso de especialización</span><select name="fpTitle" id="fpTitle" disabled><option value="">Selecciona primero una familia profesional</option></select></label>
+              <label><span data-i18n="subject">Área, materia o módulo</span><select name="subject" id="subject" required disabled><option value="">Selecciona primero una enseñanza</option></select><input name="subjectOther" id="subjectOther" placeholder="Especifica el área, materia, módulo o asignatura" hidden></label>
+              <label class="wide" id="academicDetailWrap" hidden><span data-i18n="academicDetail">Titulación, especialidad o nombre exacto</span><input name="academicDetail" id="academicDetail" placeholder="Ej. CFGS Desarrollo de Aplicaciones Web · Programación"></label>
+              <label><span data-i18n="year">Curso académico</span><input name="year" value="2026-2027"></label>
+              <label><span data-i18n="centre">Tipo de centro</span><select name="centre"><option>Público</option><option>Concertado</option><option>Privado</option><option>Universidad</option><option>Otro</option></select></label>
+              <label><span data-i18n="materialLanguage">Idioma del material</span><select name="materialLanguage"><option value="Español">Español</option><option value="English">English</option><option value="Bilingüe español-inglés">Bilingüe español–inglés</option></select></label>
+              <label class="wide" id="topicWrap"><span id="topicLabel" data-i18n="topic">Tema, contenido o aprendizaje central</span><textarea name="topic" id="topic" rows="3" placeholder="¿Qué debe aprender o practicar el alumnado?" required></textarea><small class="hint" id="topicHint"></small></label>
+            </div>
+            <div class="adaptive-context" id="adaptiveContext" aria-live="polite"></div>
+          </section>
+
+          <section class="panel" data-step="2">
+            <div class="panel-heading">
+              <span class="eyebrow" data-i18n="step3">Paso 3 de 7</span>
+              <h1 data-i18n="curriculumTitle">Encaje curricular</h1>
+              <p data-i18n="curriculumHelp">Te proponemos el modelo adecuado. Tú mantienes el control profesional.</p>
+            </div>
+            <div class="recommendation" id="modelRecommendation">
+              <span class="recommend-icon">◎</span>
+              <div><small data-i18n="recommended">RECOMENDADO PARA TU ETAPA</small><strong id="modelText">Modelo competencial LOMLOE</strong></div>
+            </div>
+            <div class="curriculum-source" id="curriculumSourceCard">
+              <div class="source-top">
+                <span class="source-icon" aria-hidden="true">📚</span>
+                <div><small data-i18n="libraryLabel">BIBLIOTECA CURRICULAR DE ANDALUCÍA</small><strong id="curriculumSourceTitle">Selecciona una enseñanza para consultar su referencia</strong></div>
+                <span class="source-status" id="curriculumStatus">En preparación</span>
+              </div>
+              <p id="curriculumSourceNote">La aplicación añadirá al prompt las referencias oficiales disponibles y señalará aquello que todavía deba verificarse.</p>
+              <ul class="source-documents" id="curriculumDocuments" aria-label="Documentos incluidos"></ul>
+              <a id="curriculumSourceLink" href="https://www.juntadeandalucia.es/boja/" target="_blank" rel="noopener" data-i18n="officialSource">Consultar fuente oficial ↗</a>
+            </div>
+            <div class="form-grid">
+              <label><span data-i18n="curriculumMode">Cómo usar el currículo</span><select name="curriculumMode"><option value="verified">Usar la base oficial disponible</option><option value="own">Usar únicamente mis referencias</option><option value="none">No incluir referencias curriculares</option></select></label>
+              <label><span data-i18n="framework">Marco de referencia</span><select name="framework" id="framework"></select></label>
+              <label><span data-i18n="scope">Grado de concreción</span><select name="scope"><option value="Alineación curricular completa">Alineación curricular completa</option><option value="Solo referencias esenciales">Solo referencias esenciales</option><option value="Sin referencias curriculares">Sin referencias curriculares</option></select></label>
+              <label class="wide advanced"><span data-i18n="curriculumPaste">Competencias, criterios, saberes o resultados que quieras incluir</span><textarea name="curriculum" rows="5" placeholder="Pégalos aquí si los tienes. Si no, el prompt pedirá a la IA que pregunte o los verifique."></textarea><small class="hint" data-i18n="noInvent">La IA recibirá la orden de no inventar códigos ni referencias oficiales.</small></label>
+              <label class="wide"><span data-i18n="goals">Objetivos concretos</span><textarea name="goals" rows="3" placeholder="Ej. interpretar gráficos, argumentar decisiones y comunicar resultados"></textarea></label>
+            </div>
+          </section>
+
+          <section class="panel" data-step="3">
+            <div class="panel-heading">
+              <span class="eyebrow" data-i18n="step4">Paso 4 de 7</span>
+              <h1 data-i18n="groupTitle">Un recurso pensado para este grupo</h1>
+              <p data-i18n="groupHelp">Describe barreras y fortalezas sin identificar a ninguna persona.</p>
+            </div>
+            <div class="privacy-banner"><strong data-i18n="protect">Protege al alumnado.</strong> <span data-i18n="protectText">Usa cantidades y necesidades generales: “dos estudiantes con dificultad de atención”, no nombres, iniciales ni diagnósticos vinculados a personas.</span></div>
+            <div class="form-grid">
+              <label><span data-i18n="groupSize">Número aproximado</span><input name="groupSize" type="number" min="1" max="200" placeholder="25"></label>
+              <label><span data-i18n="groupLevel">Nivel general del grupo</span><select name="groupLevel"><option>Heterogéneo</option><option>Inicial</option><option>Medio-bajo</option><option>Medio</option><option>Medio-alto</option><option>Avanzado</option></select></label>
+              <label class="wide"><span data-i18n="groupContext">Contexto, intereses y fortalezas</span><textarea name="groupContext" rows="4" placeholder="Participación, motivación, conocimientos previos, intereses, dinámica del grupo…"></textarea></label>
+              <label class="wide"><span data-i18n="diversity">Barreras y necesidades de apoyo</span><textarea name="diversity" id="diversity" rows="4" placeholder="Describe necesidades generales y apoyos útiles, sin datos identificativos."></textarea><small class="privacy-check" id="privacyCheck"></small></label>
+            </div>
+          </section>
+
+          <section class="panel" data-step="4">
+            <div class="panel-heading">
+              <span class="eyebrow" data-i18n="step5">Paso 5 de 7</span>
+              <h1 data-i18n="designTitle">Define el punto de partida y el diseño</h1>
+              <p data-i18n="designHelp">Indica si la IA debe crear desde cero o trabajar sobre materiales que aportarás.</p>
+            </div>
+            <div class="context-origin" id="contextOrigin">
+              <div class="section-label"><span aria-hidden="true">📎</span><div><strong data-i18n="originTitle">¿De dónde partirá la IA?</strong><small data-i18n="originHelp">PromptDocentes no recibe archivos: los adjuntarás después, junto al prompt, en la IA elegida.</small></div></div>
+              <div class="form-grid">
+                <label><span data-i18n="originMode">Origen del contenido</span><select name="sourceMode" id="sourceMode"></select></label>
+                <label><span data-i18n="sourceAction">Qué debe hacer con las fuentes</span><select name="sourceAction" id="sourceAction"></select></label>
+                <label class="wide source-details" id="sourceDetailsWrap"><span data-i18n="sourceDetails">Documentos, textos o imágenes que aportarás</span><textarea name="sourceDetails" rows="3" placeholder="Ej. PDF del tema, dos imágenes de obras y un texto del alumnado. No incluyas datos personales."></textarea><small class="hint" id="sourceReminder"></small></label>
+              </div>
+            </div>
+            <div class="suggestion-box" id="suggestionBox"><span>✦</span><div><strong data-i18n="suggestions">Sugerencias para este recurso</strong><p id="suggestionText"></p></div><button type="button" id="applySuggestions" data-i18n="apply">Aplicar</button></div>
+            <div class="resource-options" id="resourceOptions" aria-live="polite"></div>
+            <div id="learningOptions">
+              <fieldset><legend data-i18n="methodology">Metodologías</legend><div class="chip-group" data-name="methodologies" id="methodologyChips"></div></fieldset>
+              <fieldset><legend data-i18n="assessment">Evaluación</legend><div class="chip-group" data-name="assessment" id="assessmentChips"></div></fieldset>
+            </div>
+            <div class="form-grid compact-grid" id="designDetails">
+              <label><span data-i18n="sessions">Número de sesiones</span><input name="sessions" type="number" min="1" max="180" value="1"></label>
+              <label><span data-i18n="duration">Duración por sesión</span><select name="duration"><option>45 min</option><option>50 min</option><option>55 min</option><option>60 min</option><option>90 min</option><option>Otro</option></select></label>
+              <label class="wide advanced"><span data-i18n="tools">Recursos y herramientas disponibles</span><textarea name="tools" rows="3" placeholder="Pizarra digital, tabletas, biblioteca, laboratorio, materiales manipulativos…"></textarea></label>
+              <label class="wide"><span data-i18n="product">Producto, evidencia o resultado esperado</span><input name="product" placeholder="Déjalo vacío para recibir una propuesta"></label>
+            </div>
+          </section>
+
+          <section class="panel" data-step="5">
+            <div class="panel-heading">
+              <span class="eyebrow" data-i18n="step6">Paso 6 de 7</span>
+              <h1 data-i18n="finishTitle">Afina el encargo</h1>
+              <p data-i18n="finishHelp">La estructura se adapta a la IA que utilizarás.</p>
+            </div>
+            <div class="form-grid">
+              <label><span data-i18n="ai">IA de destino</span><select name="ai"><option>ChatGPT / Codex</option><option>Gemini</option><option>Claude</option><option>Microsoft Copilot</option><option>Otra IA</option><option value="Universal">Formato universal</option></select></label>
+              <label><span data-i18n="tone">Tono</span><select name="tone"><option>Profesional cercano</option><option>Institucional</option><option>Claro y directo</option><option>Creativo</option><option>Académico</option></select></label>
+              <label><span data-i18n="length">Extensión deseada</span><select name="length"><option>Equilibrada</option><option>Breve</option><option>Detallada</option><option>Exhaustiva</option></select></label>
+              <label><span data-i18n="format">Formato de la respuesta</span><select name="format"><option>Documento estructurado</option><option>Tabla y apartados</option><option>Texto listo para editar</option><option>Guion paso a paso</option><option>La IA debe proponerlo</option></select></label>
+              <label class="wide"><span data-i18n="request">Explica con tus palabras qué buscas</span><textarea name="request" rows="5" placeholder="Incluye aquello que para ti sea imprescindible, lo que no quieres y cualquier condicionante del aula."></textarea></label>
+              <label class="wide advanced"><span data-i18n="quality">Condiciones de calidad adicionales</span><textarea name="quality" rows="3" placeholder="Ej. actividades aplicables, lenguaje no burocrático, soluciones incluidas, material imprimible…"></textarea></label>
+            </div>
+          </section>
+
+          <section class="panel" data-step="6">
+            <div class="panel-heading review-heading">
+              <div><span class="eyebrow" data-i18n="step7">Paso 7 de 7</span><h1 data-i18n="promptReady">Tu superprompt está listo</h1><p data-i18n="promptReadyHelp">Revísalo y edítalo. Nada de lo escrito se ha enviado fuera de esta página.</p></div>
+              <div class="quality-score"><strong id="score">—</strong><span data-i18n="qualityScore">nivel de contexto</span></div>
+            </div>
+            <div class="prompt-toolbar"><span id="promptMeta"></span><div><button type="button" class="ghost" id="selectAll" data-i18n="selectAll">Seleccionar todo</button><button type="button" class="primary" id="copyPrompt" data-i18n="copy">Copiar prompt</button></div></div>
+            <textarea id="promptOutput" class="prompt-output" aria-label="Prompt generado" spellcheck="true"></textarea>
+            <div class="review-notes" id="reviewNotes"></div>
+            <p class="professional-reminder" data-i18n="professionalReminder">🧑‍🏫 El resultado será un borrador editable: revísalo antes de utilizarlo con tu alumnado.</p>
+            <section class="handoff-card" aria-labelledby="handoffTitle">
+              <div class="handoff-heading"><span>🚀</span><div><small data-i18n="handoffKicker">SIGUIENTE PASO</small><h2 id="handoffTitle" data-i18n="handoffTitle">Convierte el prompt en tu recurso</h2><p data-i18n="handoffIntro">Elige la ruta que mejor encaje con tu cuenta. La skill mejora la consistencia, pero el prompt también funciona por sí solo.</p></div></div>
+              <div class="handoff-routes">
+                <article class="handoff-route recommended-route"><span class="route-badge" data-i18n="recommendedRoute">RECOMENDADA</span><h3 data-i18n="directRouteTitle">💬 Sin instalar nada</h3><p data-i18n="directRouteText">Copia el prompt y pégalo directamente en la IA seleccionada. Adjunta allí los documentos o imágenes indicados antes de enviarlo.</p><button type="button" class="primary-action" id="copyPromptSecondary" data-i18n="copyAndContinue">Copiar prompt y ver el siguiente paso</button><p class="handoff-status" id="handoffStatus" role="status" aria-live="polite" data-i18n="afterCopyHint">Después: abre tu IA, pega el prompt y adjunta allí los materiales indicados.</p></article>
+                <article class="handoff-route"><h3 data-i18n="skillRouteTitle">🧩 Skill opcional · Codex y entornos compatibles</h3><p data-i18n="skillRouteText">El ZIP es una skill independiente para Codex y aplicaciones compatibles. En ChatGPT web —especialmente con una cuenta personal gratuita— utiliza la ruta sin instalación.</p><div class="route-actions"><a class="ghost" href="downloads/promptdocentes-recursos-beta.zip" download data-i18n="downloadSkill">Descargar skill beta</a><button type="button" class="ghost" id="skillGuideBtn" data-i18n="viewTutorial">Ver compatibilidad y guía</button></div></article>
+              </div>
+              <p class="availability-note" data-i18n="skillAvailability">ℹ️ La disponibilidad de skills depende del producto, la cuenta y la configuración del espacio de trabajo. Si no ves la opción Skills o Plugins, utiliza la ruta sin instalación.</p>
+            </section>
+            <button type="button" class="reset-link" id="resetForm" data-i18n="reset">Empezar de nuevo</button>
+          </section>
+
+          <div class="form-actions">
+            <button type="button" class="ghost" id="backBtn" data-i18n="back">Atrás</button>
+            <span class="step-counter" id="stepCounter"></span>
+            <button type="button" class="primary" id="nextBtn" data-i18n="next">Continuar</button>
+          </div>
+        </form>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <span><span data-i18n="independentProject">Proyecto personal independiente. No es una web oficial de la Junta de Andalucía.</span> <strong class="creator-credit" data-i18n="creatorCredit">Creada por Teacher MikeSL.</strong></span>
+      <div class="footer-actions"><a href="guia.html" data-i18n="userGuide">Guía de uso</a><a href="beta.html" data-i18n="betaGuide">Ayúdanos a mejorar</a><button type="button" id="footerInfoBtn" data-i18n="projectInfo">Estado y fuentes</button></div>
+    </footer>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+  <dialog class="project-dialog" id="projectInfoDialog" aria-labelledby="projectInfoTitle">
+    <div class="dialog-top">
+      <div><span class="dialog-kicker" data-i18n="betaBadge">🧪 Beta pública · v0.9</span><h2 id="projectInfoTitle" data-i18n="infoTitle">Antes de usar PromptDocentes</h2></div>
+      <button type="button" class="dialog-close" id="projectInfoClose" aria-label="Cerrar">×</button>
+    </div>
+    <p class="dialog-lead" data-i18n="infoPurpose"><strong>PromptDocentes construye el encargo para la IA;</strong> no genera por sí solo el recurso educativo final.</p>
+    <div class="coverage-grid">
+      <article class="coverage-card complete"><span>✅</span><div><strong data-i18n="coverageCompleteTitle">Cobertura curricular completa</strong><p data-i18n="coverageCompleteText">Infantil, Primaria, ESO y Bachillerato: colecciones estructuradas por etapa, curso y área o materia.</p></div></article>
+      <article class="coverage-card pilot"><span>🧭</span><div><strong data-i18n="coveragePilotTitle">FP: catálogo guiado y piloto</strong><p data-i18n="coveragePilotText">209 títulos y 2.836 módulos para guiar la selección. Currículo completo incorporado, por ahora, en DAW · módulo 0612.</p></div></article>
+      <article class="coverage-card guided"><span>📎</span><div><strong data-i18n="coverageGuidedTitle">Otras enseñanzas: referencia propia</strong><p data-i18n="coverageGuidedText">Educación Especial, personas adultas, EOI, conservatorios, enseñanzas artísticas superiores, universidad y educación no formal requieren aportar o verificar su referencia específica.</p></div></article>
+    </div>
+    <div class="dialog-notices">
+      <p data-i18n="infoPrivacy">🔐 No se guardan ni se transmiten los datos que escribes. Evita introducir información personal o identificativa.</p>
+      <p data-i18n="infoReview">⚖️ Ante cualquier discrepancia prevalece la publicación oficial firmada. El docente debe revisar el prompt y el recurso final antes de utilizarlos.</p>
+    </div>
+    <div class="dialog-footer"><span data-i18n="lastReviewed">Última revisión: 20/09/2026</span><button type="button" class="primary" id="projectInfoAccept" data-i18n="understood">Entendido</button></div>
+  </dialog>
+  <dialog class="project-dialog skill-dialog" id="skillGuideDialog" aria-labelledby="skillGuideTitle">
+    <div class="dialog-top">
+      <div><span class="dialog-kicker" data-i18n="guidedRoute">RUTA GUIADA</span><h2 id="skillGuideTitle" data-i18n="skillGuideTitle">Cómo usar la skill en ChatGPT o Codex</h2></div>
+      <button type="button" class="dialog-close" id="skillGuideClose" aria-label="Cerrar">×</button>
+    </div>
+    <ol class="tutorial-steps">
+      <li><span>1</span><div><strong data-i18n="tutorialDownloadTitle">Descarga el paquete</strong><p data-i18n="tutorialDownloadText">Guarda el archivo ZIP de PromptDocentes Recursos sin descomprimirlo.</p><a href="downloads/promptdocentes-recursos-beta.zip" download data-i18n="downloadSkill">Descargar skill beta</a></div></li>
+      <li><span>2</span><div><strong data-i18n="tutorialInstallTitle">Comprueba primero la compatibilidad</strong><p data-i18n="tutorialInstallText">El ZIP funciona como skill independiente en Codex y en aplicaciones que admitan ese formato. No presupongas que se puede instalar desde ChatGPT web: con una cuenta personal gratuita usa directamente el prompt.</p></div></li>
+      <li><span>3</span><div><strong data-i18n="tutorialStartTitle">Abre una conversación nueva</strong><p data-i18n="tutorialStartText">Invoca “PromptDocentes Recursos” con @ o escribe: “Usa $promptdocentes-recursos para ejecutar este prompt”.</p></div></li>
+      <li><span>4</span><div><strong data-i18n="tutorialPasteTitle">Pega, adjunta y revisa</strong><p data-i18n="tutorialPasteText">Pega el superprompt completo, adjunta los materiales anunciados y pide el recurso terminado. Comprueba siempre la salida antes de utilizarla.</p></div></li>
+    </ol>
+    <div class="dialog-notices"><p data-i18n="tutorialFallback">💡 Si usas ChatGPT gratuito en el navegador o no aparece Skills/Plugins, no necesitas instalar nada: copia el prompt y úsalo directamente.</p></div>
+    <div class="dialog-footer"><a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noopener" data-i18n="officialSkillGuide">Consultar guía oficial ↗</a><button type="button" class="primary" id="skillGuideAccept" data-i18n="understood">Entendido</button></div>
+  </dialog>
+  <script src="data/primary-math-alignment.js"></script>
+  <script src="data/infant-curriculum.js"></script>
+  <script src="data/primary-curriculum.js"></script>
+  <script src="data/eso-curriculum.js"></script>
+  <script src="data/bach-curriculum.js"></script>
+  <script src="data/fp-catalog.js"></script>
+  <script src="data/fp-daw-curriculum.js"></script>
+  <script src="curriculum.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
