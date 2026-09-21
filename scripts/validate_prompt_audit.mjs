@@ -22,7 +22,7 @@ for(const cycle of Object.values(data.subjects.mates.cycles)){
 const selected={data,subject:data.subjects.mates,grade:'3',cycle:'2',cycleData:data.subjects.mates.cycles['2'],criteria:data.subjects.mates.cycles['2'].criteriaByGrade['3']};
 context.primaryCurriculumSelection=()=>selected;
 context.infantCurriculumSelection=()=>null;
-vm.runInNewContext(app.slice(app.indexOf('function primaryCurriculumPrompt('),app.indexOf('function infantCurriculumPrompt(')),context);
+vm.runInNewContext(app.slice(app.indexOf('function curriculumDetailMode('),app.indexOf('function infantCurriculumPrompt(')),context);
 vm.runInNewContext(app.slice(app.indexOf('function curriculumExecutionPolicy('),app.indexOf('const generatePromptBeforeBetaAudit=')),context);
 vm.runInNewContext(app.slice(app.indexOf('function resourceContext('),app.indexOf('values=function(){const v=valuesBase();v.priorities=')),context);
 const stale={resourceId:'curriculumMap',duration:'45 minutes',sessions:1,methods:['Cooperative'],assess:['Rubric'],topic:'Stale topic',creationTool:'canva',request:'Keep this request'};
@@ -42,9 +42,18 @@ for(const isEn of [false,true]){
   assert.ok(!policy.includes(isEn?'Audit each proposed activity':'Contrasta cada actividad'));
 }
 for(const isEn of [false,true]){
-  const v={resourceId:'worksheet',curriculumMode:'verified'};
-  const block=context.primaryCurriculumPrompt(v,isEn);
-  assert.ok(block.includes('MAT.2.A.3.4:')); // Description, not code-only list.
+  const v={resourceId:'worksheet',curriculumMode:'verified',curriculumDetail:'compact'};
+  const block=context.primaryCurriculumPrompt(v,isEn),exhaustive=context.primaryCurriculumPrompt({...v,curriculumDetail:'exhaustive'},isEn);
+  assert.ok(block.includes('MAT.2.A.3.4'));
+  assert.ok(!block.includes('MAT.2.A.3.4: Suma'));
+  assert.ok(exhaustive.includes('MAT.2.A.3.4: Suma'));
+  assert.ok(block.length<exhaustive.length*.75,'Compact mode should materially reduce curriculum text');
+  for(const item of selected.cycleData.competencies)assert.ok(block.includes(`${item.code}: ${item.text}`));
+  for(const item of selected.criteria)assert.ok(block.includes(`${item.code}: ${item.text}`));
+  assert.equal(context.curriculumDetailMode({...v,curriculumDetail:'auto'}),'compact');
+  assert.equal(context.curriculumDetailMode({...v,resourceId:'annual',curriculumDetail:'auto'}),'exhaustive');
+  assert.equal(context.curriculumDetailMode({...v,resourceId:'curriculumMap',curriculumDetail:'auto'}),'exhaustive');
+  assert.ok(!context.includeCurriculumSabers({...v,resourceId:'curriculumMap',mapScope:'competencies-criteria',curriculumDetail:'exhaustive'}));
   assert.ok(context.curriculumExecutionPolicy(v,isEn).includes('2–4'));
   assert.ok(context.curriculumExecutionPolicy({...v,resourceId:'situation'},isEn).includes(isEn?'3–6':'3 y 6'));
   assert.ok(context.primaryMathAlignmentPrompt(selected,isEn).includes('2.2.a: MAT.2.A.1.1'));
@@ -57,14 +66,16 @@ for(let grade=1;grade<=6;grade++)assert.ok(wholePrimary.includes(`${grade}.º de
 context.$=selector=>nodes[selector.slice(1)];
 context.line=(label,value)=>value?`- ${label}: ${value}\n`:'';
 context.state={lang:0};
-let inputs={resourceId:'worksheet',curriculumMode:'verified',materialLanguage:'Español',ai:'ChatGPT / Codex',sourceMode:'free'};
+let inputs={resourceId:'worksheet',curriculumMode:'verified',curriculumDetail:'compact',materialLanguage:'Español',ai:'ChatGPT / Codex',sourceMode:'free'};
 context.values=()=>inputs;
 context.generatePrompt=()=>{nodes.promptOutput.value=`generator_version: beta-0.9\ncurriculum_mode: verified\nConserva códigos y sentido; no inventes, fusiones ni omitas elementos.\nUsa esa transcripción y conserva todos sus códigos.\n${context.primaryCurriculumPrompt(inputs,inputs.materialLanguage==='English')}\n# ${inputs.materialLanguage==='English'?'TASK':'ENCARGO'}\nMultiplicaciones`;};
 vm.runInNewContext(app.slice(app.indexOf('const generatePromptBeforeBetaAudit='),app.indexOf('Object.assign(translations,{')),context);
 context.generatePrompt();
-assert.ok(nodes.promptOutput.value.includes('generator_version: beta-0.9.8'));
+assert.ok(nodes.promptOutput.value.includes('generator_version: beta-0.9.9'));
 assert.ok(nodes.promptOutput.value.includes('curriculum_mode: embedded_or_linked'));
+assert.ok(nodes.promptOutput.value.includes('curriculum_detail: compact'));
 assert.ok(nodes.promptOutput.value.includes('curriculum_currency: pending_consolidated_review'));
+assert.ok(nodes.promptOutput.value.includes('Modo compacto'));
 assert.ok(nodes.promptOutput.value.includes('evidencia individual observable'));
 assert.ok(nodes.promptOutput.value.includes('Recurso elaborado a partir del prompt'));
 assert.ok(nodes.promptOutput.value.includes('Resumen didáctico — no es redacción oficial'));

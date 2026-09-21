@@ -95,6 +95,7 @@
             </div>
             <div class="form-grid">
               <label><span data-i18n="curriculumMode">Cómo usar el currículo</span><select name="curriculumMode"><option value="verified">Usar la base oficial disponible</option><option value="own">Usar únicamente mis referencias</option><option value="none">No incluir referencias curriculares</option></select></label>
+              <label id="curriculumDetailWrap"><span data-i18n="curriculumDetail">Extensión curricular del prompt</span><select name="curriculumDetail" id="curriculumDetail"><option value="auto" data-es="Automático · recomendado" data-en="Automatic · recommended">Automático · recomendado</option><option value="compact" data-es="Compacto" data-en="Compact">Compacto</option><option value="exhaustive" data-es="Exhaustivo" data-en="Exhaustive">Exhaustivo</option></select><small class="hint" id="curriculumDetailHint"></small></label>
               <label><span data-i18n="framework">Marco de referencia</span><select name="framework" id="framework"></select></label>
               <label><span data-i18n="scope">Grado de concreción</span><select name="scope"><option value="Alineación curricular completa">Alineación curricular completa</option><option value="Solo referencias esenciales">Solo referencias esenciales</option><option value="Sin referencias curriculares">Sin referencias curriculares</option></select></label>
               <label class="wide advanced"><span data-i18n="curriculumPaste">Competencias, criterios, saberes o resultados que quieras incluir</span><textarea name="curriculum" rows="5" placeholder="Pégalos aquí si los tienes. Si no, el prompt pedirá a la IA que pregunte o los verifique."></textarea><small class="hint" data-i18n="noInvent">La IA recibirá la orden de no inventar códigos ni referencias oficiales.</small></label>
@@ -210,7 +211,7 @@
       <p data-i18n="infoPrivacy">🔐 No se guardan ni se transmiten los datos que escribes. Evita introducir información personal o identificativa.</p>
       <p data-i18n="infoReview">⚖️ Ante cualquier discrepancia prevalece la publicación oficial firmada. El docente debe revisar el prompt y el recurso final antes de utilizarlos.</p>
     </div>
-    <div class="dialog-footer"><span data-i18n="lastReviewed">Última revisión: 20/09/2026</span><button type="button" class="primary" id="projectInfoAccept" data-i18n="understood">Entendido</button></div>
+    <div class="dialog-footer"><span data-i18n="lastReviewed">Última revisión: 21/09/2026</span><button type="button" class="primary" id="projectInfoAccept" data-i18n="understood">Entendido</button></div>
   </dialog>
   <dialog class="project-dialog skill-dialog" id="skillGuideDialog" aria-labelledby="skillGuideTitle">
     <div class="dialog-top">
@@ -242,6 +243,6 @@
   <script src="data/fp-catalog.js"></script>
   <script src="data/fp-daw-curriculum.js"></script>
   <script src="curriculum.js"></script>
-  <script src="app.js?v=0.9.1"></script>
+  <script src="app.js?v=0.9.2"></script>
 </body>
 </html>
