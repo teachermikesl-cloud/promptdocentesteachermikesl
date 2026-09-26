@@ -41,8 +41,12 @@ for (const [id, expected] of Object.entries(expectedGrades)) {
     for (const code of gradeData.saberReferences) if (!defined.has(code) && !allowedAnomalies.has(code)) errors.push(`${id} ${grade}: referencia no definida ${code}.`);
   }
 }
-const expectedTotals = {competencies:436, criteria:1230, sabers:2213};
+const expectedTotals = {competencies:436, criteria:1230, sabers:2211};
 for (const [key, expected] of Object.entries(expectedTotals)) if (totals[key] !== expected) errors.push(`${key}: ${totals[key]}, esperados ${expected}.`);
+const ef1 = data.subjects.fisica?.grades?.['1'];
+if (ef1?.competencies.length !== 5 || ef1?.criteria.length !== 17 || ef1?.sabers.length !== 49) errors.push('Educación Física 1.º: recuento curricular inesperado.');
+if (!ef1?.competencies[0]?.text.startsWith('Adoptar un estilo de vida activo y saludable')) errors.push('Educación Física 1.º: competencias contaminadas por la tabla paralela.');
+if (ef1?.sabers.some(item => /^EFI\.1\.F\.[12]\.5\./.test(item.code) || /retardado\. autónomo/.test(item.text))) errors.push('Educación Física 1.º: saberes contaminados por 2.º ESO.');
 const actualAnomalies = new Set(data.sourceAnomalies.map(item => item.code));
 if (actualAnomalies.size !== allowedAnomalies.size || [...actualAnomalies].some(code => !allowedAnomalies.has(code))) errors.push('La lista de incidencias de la fuente oficial ha cambiado.');
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }

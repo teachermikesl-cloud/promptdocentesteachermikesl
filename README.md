@@ -4,6 +4,8 @@ PromptDocentes es un generador gratuito de superprompts educativos creado por **
 
 La aplicación funciona completamente en el navegador: no exige registro, no envía formularios y no almacena lo que escribe el usuario. El resultado es un prompt que el docente copia y utiliza en la IA de su elección.
 
+Entre los recursos disponibles se encuentra **Proyecto de curso completo**, un recorrido por fases para diseñar el mapa anual, validar una secuencia piloto y producir después las unidades, materiales, evaluación e inventario final sin confundirlo con una única programación anual.
+
 ## Estado curricular
 
 - Infantil, Primaria, ESO y Bachillerato: colecciones curriculares estructuradas incorporadas.
@@ -27,4 +29,3 @@ PromptDocentes ha sido creado por **Teacher MikeSL**.
 - El código fuente está protegido por copyright y se distribuye con todos los derechos reservados. Consulta [LICENSE-CODE.md](LICENSE-CODE.md).
 - Los textos educativos y la documentación original se ofrecen bajo [CC BY-NC-SA 4.0](LICENSE-CONTENT.md).
 - PromptDocentes es un proyecto personal independiente y no es una web oficial de la Junta de Andalucía.
-
