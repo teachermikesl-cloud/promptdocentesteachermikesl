@@ -115,6 +115,9 @@ assert.ok(app.includes("scope.value=['annual','coursePack','curriculumMap'].incl
 assert.ok(app.includes("id:'coursePack'"));
 assert.ok(app.includes('PROTOCOLO DE PROYECTO DE CURSO COMPLETO'));
 assert.ok(app.includes('20_secuencias'));
+assert.ok(app.includes('90_entrega/📦 Proyecto docente'));
+assert.ok(app.includes('Los iconos deben ayudar, nunca sustituir'));
+assert.ok(app.includes('PromptDocentes · Teacher MikeSL'));
 assert.ok(app.includes('criterio–actividad–evidencia–instrumento'));
 assert.ok(app.includes('saberes vinculados oficialmente a cada criterio'));
 assert.ok(app.includes('debe reducir realmente la duración'));
