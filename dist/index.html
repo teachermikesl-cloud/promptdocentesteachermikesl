@@ -7,7 +7,7 @@
   <meta name="color-scheme" content="light">
   <title>PromptDocentes · Diseña mejores recursos con IA</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x2='1' y2='1'%3E%3Cstop stop-color='%235b34e6'/%3E%3Cstop offset='.55' stop-color='%23872ee8'/%3E%3Cstop offset='1' stop-color='%23ff5d76'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='17' fill='url(%23g)'/%3E%3Cpath d='M21 45l5-20 19-7-6 20-18 7zm8-10 7-3 3-7-7 3-3 7z' fill='white'/%3E%3Cpath d='M17 17l2 5 5 2-5 2-2 5-2-5-5-2 5-2 2-5z' fill='%23ffd45c'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=0.9.1">
+  <link rel="stylesheet" href="styles.css?v=0.9.5">
 </head>
 <body>
   <div class="app-shell">
@@ -175,7 +175,8 @@
               <div class="handoff-heading"><span>🚀</span><div><small data-i18n="handoffKicker">SIGUIENTE PASO</small><h2 id="handoffTitle" data-i18n="handoffTitle">Convierte el prompt en tu recurso</h2><p data-i18n="handoffIntro">Elige la ruta que mejor encaje con tu cuenta. La skill mejora la consistencia, pero el prompt también funciona por sí solo.</p></div></div>
               <div class="handoff-routes">
                 <article class="handoff-route recommended-route"><span class="route-badge" data-i18n="recommendedRoute">RECOMENDADA</span><h3 data-i18n="directRouteTitle">💬 Sin instalar nada</h3><p data-i18n="directRouteText">Copia el prompt y pégalo directamente en la IA seleccionada. Adjunta allí los documentos o imágenes indicados antes de enviarlo.</p><button type="button" class="primary-action" id="copyPromptSecondary" data-i18n="copyAndContinue">Copiar prompt y ver el siguiente paso</button><p class="handoff-status" id="handoffStatus" role="status" aria-live="polite" data-i18n="afterCopyHint">Después: abre tu IA, pega el prompt y adjunta allí los materiales indicados.</p></article>
-                <article class="handoff-route"><h3 data-i18n="skillRouteTitle">🧩 Skill opcional · Codex y entornos compatibles</h3><p data-i18n="skillRouteText">El ZIP es una skill independiente para Codex y aplicaciones compatibles. En ChatGPT web —especialmente con una cuenta personal gratuita— utiliza la ruta sin instalación.</p><div class="route-actions"><a class="ghost" href="downloads/promptdocentes-recursos-beta.zip" download data-i18n="downloadSkill">Descargar skill beta</a><button type="button" class="ghost" id="skillGuideBtn" data-i18n="viewTutorial">Ver compatibilidad y guía</button></div></article>
+                <article class="handoff-route" id="resourceSkillRoute"><h3 data-i18n="skillRouteTitle">🧩 Skill opcional · Recursos</h3><p data-i18n="skillRouteText">Para sesiones, unidades, mapas, rúbricas y otros recursos concretos en Codex y entornos compatibles.</p><div class="route-actions"><a class="ghost" href="downloads/promptdocentes-recursos-beta.zip" download data-i18n="downloadResourceSkill">Descargar skill de recursos</a><button type="button" class="ghost" id="skillGuideBtn" data-i18n="viewTutorial">Ver compatibilidad y guía</button></div></article>
+                <article class="handoff-route" id="courseSkillRoute" hidden><h3 data-i18n="courseSkillRouteTitle">🧰 Skill de curso completo</h3><p data-i18n="courseSkillRouteText">Para proyectos anuales con carpetas, archivos editables, producción por bloques y validación final. Requiere Codex o un entorno equivalente con gestión de archivos.</p><div class="route-actions"><a class="ghost" href="downloads/promptdocentes-curso-completo-beta.zip" download data-i18n="downloadCourseSkill">Descargar skill de curso</a><a class="ghost" href="guia.html#curso-completo" data-i18n="viewCourseGuide">Ver guía del proceso</a></div></article>
               </div>
               <p class="availability-note" data-i18n="skillAvailability">ℹ️ La disponibilidad de skills depende del producto, la cuenta y la configuración del espacio de trabajo. Si no ves la opción Skills o Plugins, utiliza la ruta sin instalación.</p>
             </section>
@@ -211,21 +212,21 @@
       <p data-i18n="infoPrivacy">🔐 No se guardan ni se transmiten los datos que escribes. Evita introducir información personal o identificativa.</p>
       <p data-i18n="infoReview">⚖️ Ante cualquier discrepancia prevalece la publicación oficial firmada. El docente debe revisar el prompt y el recurso final antes de utilizarlos.</p>
     </div>
-    <div class="dialog-footer"><span data-i18n="lastReviewed">Última revisión: 21/09/2026</span><button type="button" class="primary" id="projectInfoAccept" data-i18n="understood">Entendido</button></div>
+    <div class="dialog-footer"><span data-i18n="lastReviewed">Última revisión: 30/09/2026</span><button type="button" class="primary" id="projectInfoAccept" data-i18n="understood">Entendido</button></div>
   </dialog>
   <dialog class="project-dialog skill-dialog" id="skillGuideDialog" aria-labelledby="skillGuideTitle">
     <div class="dialog-top">
-      <div><span class="dialog-kicker" data-i18n="guidedRoute">RUTA GUIADA</span><h2 id="skillGuideTitle" data-i18n="skillGuideTitle">Cómo usar la skill en ChatGPT o Codex</h2></div>
+      <div><span class="dialog-kicker" data-i18n="guidedRoute">RUTA GUIADA</span><h2 id="skillGuideTitle" data-i18n="skillGuideTitle">Cómo usar las skills de PromptDocentes</h2></div>
       <button type="button" class="dialog-close" id="skillGuideClose" aria-label="Cerrar">×</button>
     </div>
     <ol class="tutorial-steps">
-      <li><span>1</span><div><strong data-i18n="tutorialDownloadTitle">Descarga el paquete</strong><p data-i18n="tutorialDownloadText">Guarda el archivo ZIP de PromptDocentes Recursos sin descomprimirlo.</p><a href="downloads/promptdocentes-recursos-beta.zip" download data-i18n="downloadSkill">Descargar skill beta</a></div></li>
+      <li><span>1</span><div><strong data-i18n="tutorialDownloadTitle">Elige el paquete correcto</strong><p data-i18n="tutorialDownloadText">Usa PromptDocentes Recursos para encargos concretos y PromptDocentes Curso Completo para proyectos anuales con archivos y carpetas.</p><div class="route-actions"><a href="downloads/promptdocentes-recursos-beta.zip" download data-i18n="downloadResourceSkill">Descargar skill de recursos</a><a href="downloads/promptdocentes-curso-completo-beta.zip" download data-i18n="downloadCourseSkill">Descargar skill de curso</a></div></div></li>
       <li><span>2</span><div><strong data-i18n="tutorialInstallTitle">Comprueba primero la compatibilidad</strong><p data-i18n="tutorialInstallText">El ZIP funciona como skill independiente en Codex y en aplicaciones que admitan ese formato. No presupongas que se puede instalar desde ChatGPT web: con una cuenta personal gratuita usa directamente el prompt.</p></div></li>
-      <li><span>3</span><div><strong data-i18n="tutorialStartTitle">Abre una conversación nueva</strong><p data-i18n="tutorialStartText">Invoca “PromptDocentes Recursos” con @ o escribe: “Usa $promptdocentes-recursos para ejecutar este prompt”.</p></div></li>
+      <li><span>3</span><div><strong data-i18n="tutorialStartTitle">Abre una conversación o proyecto nuevo</strong><p data-i18n="tutorialStartText">Activa la skill reconocida por tu entorno. Para un curso completo, trabaja en un proyecto con archivos persistentes y conserva la misma carpeta durante todo el proceso.</p></div></li>
       <li><span>4</span><div><strong data-i18n="tutorialPasteTitle">Pega, adjunta y revisa</strong><p data-i18n="tutorialPasteText">Pega el superprompt completo, adjunta los materiales anunciados y pide el recurso terminado. Comprueba siempre la salida antes de utilizarla.</p></div></li>
     </ol>
     <div class="dialog-notices"><p data-i18n="tutorialFallback">💡 Si usas ChatGPT gratuito en el navegador o no aparece Skills/Plugins, no necesitas instalar nada: copia el prompt y úsalo directamente.</p></div>
-    <div class="dialog-footer"><a href="https://learn.chatgpt.com/docs/build-skills" target="_blank" rel="noopener" data-i18n="officialSkillGuide">Consultar guía oficial ↗</a><button type="button" class="primary" id="skillGuideAccept" data-i18n="understood">Entendido</button></div>
+    <div class="dialog-footer"><a href="guia.html#entorno" data-i18n="fullCompatibilityGuide">Consultar la guía completa</a><button type="button" class="primary" id="skillGuideAccept" data-i18n="understood">Entendido</button></div>
   </dialog>
   <dialog class="project-dialog reset-dialog" id="resetDialog" aria-labelledby="resetDialogTitle">
     <div class="dialog-top">
@@ -243,6 +244,6 @@
   <script src="data/fp-catalog.js"></script>
   <script src="data/fp-daw-curriculum.js"></script>
   <script src="curriculum.js"></script>
-  <script src="app.js?v=0.9.4"></script>
+  <script src="app.js?v=0.9.5"></script>
 </body>
 </html>

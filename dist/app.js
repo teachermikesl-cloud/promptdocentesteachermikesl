@@ -584,6 +584,9 @@ generatePrompt=function(){
   const links=v.curriculumMode==='verified'?(v.resourceId==='curriculumMap'&&v.mapCourses==='stage'&&primary?Object.values(primary.subject.cycles).flatMap(cycleData=>Object.entries(cycleData.criteriaByGrade).map(([grade,criteria])=>`\n### ${grade}.º de Primaria\n${primaryMathAlignmentPrompt({...primary,grade,criteria},isEn)}`)).join(''):primaryMathAlignmentPrompt(primary,isEn)):'';
   p=p.replace(/\n# (ENCARGO|TASK)\n/,`${curriculumDetailPolicy(v,isEn)}${links}${v.resourceId==='curriculumMap'?infantMapPolicy(infant,isEn):''}${curriculumExecutionPolicy(v,isEn)}\n# $1\n`);
   $('#promptOutput').value=p;$('#promptMeta').textContent=`${p.split(/\s+/).length} ${state.lang?'words':'palabras'} · ${v.ai||'ChatGPT / Codex'}`;
+  const resourceSkillRoute=$('#resourceSkillRoute'),courseSkillRoute=$('#courseSkillRoute');
+  if(resourceSkillRoute)resourceSkillRoute.hidden=v.resourceId==='coursePack';
+  if(courseSkillRoute)courseSkillRoute.hidden=v.resourceId!=='coursePack';
   if(v.curriculumMode==='verified')$('#reviewNotes').innerHTML=`<div class="review-note">⚖️ ${state.lang?'Built-in source transcription; later amendments are not certified as integrated. Review the selected elements and final resource.':'Transcripción de la fuente incorporada; no se certifica la integración de modificaciones posteriores. Revisa la selección y el recurso final.'}</div>`;
 };
 Object.assign(translations,{
@@ -600,19 +603,28 @@ Object.assign(translations,{
   betaGuide:['Ayúdanos a mejorar','Help us improve'],
   infoTitle:['Antes de usar PromptDocentes','Before using PromptDocentes'],
   handoffIntro:['Empieza copiando el prompt en tu IA. La skill es una alternativa opcional para entornos compatibles; no es necesaria para usar la web.','Start by copying the prompt into your AI. The skill is an optional alternative for compatible environments; it is not required to use this website.'],
-  skillRouteTitle:['🧩 Skill opcional · Codex y entornos compatibles','🧩 Optional skill · Codex and compatible environments'],
-  skillRouteText:['El ZIP es una skill independiente para Codex y aplicaciones compatibles. En ChatGPT web —especialmente con una cuenta personal gratuita— utiliza la ruta sin instalación.','The ZIP is a standalone skill for Codex and compatible applications. In ChatGPT on the web—especially with a free personal account—use the no-installation route.'],
+  skillRouteTitle:['🧩 Skill opcional · Recursos','🧩 Optional skill · Resources'],
+  skillRouteText:['Para sesiones, unidades, mapas, rúbricas y otros recursos concretos en Codex y entornos compatibles.','For lessons, units, maps, rubrics and other specific resources in Codex and compatible environments.'],
+  courseSkillRouteTitle:['🧰 Skill de curso completo','🧰 Complete-course skill'],
+  courseSkillRouteText:['Para proyectos anuales con carpetas, archivos editables, producción por bloques y validación final. Requiere Codex o un entorno equivalente con gestión de archivos.','For annual projects with folders, editable files, production batches and final validation. Requires Codex or an equivalent file-capable environment.'],
+  downloadResourceSkill:['Descargar skill de recursos','Download resource skill'],
+  downloadCourseSkill:['Descargar skill de curso','Download course skill'],
+  viewCourseGuide:['Ver guía del proceso','View process guide'],
   copyAndContinue:['Copiar prompt y ver el siguiente paso','Copy prompt and see the next step'],
   afterCopyHint:['Después: abre tu IA, pega el prompt y adjunta allí los materiales indicados.','Next: open your AI, paste the prompt and attach any listed materials there.'],
   viewTutorial:['Ver compatibilidad y guía','Compatibility and guide'],
-  tutorialDownloadText:['El ZIP contiene una skill independiente, no un complemento publicado ni una instalación automática. Descárgalo solo si tu entorno admite ese formato.','The ZIP contains a standalone skill, not a published plugin or an automatic installation. Download it only if your environment supports that format.'],
+  skillGuideTitle:['Cómo usar las skills de PromptDocentes','How to use PromptDocentes skills'],
+  tutorialDownloadTitle:['Elige el paquete correcto','Choose the right package'],
+  tutorialDownloadText:['Usa PromptDocentes Recursos para encargos concretos y PromptDocentes Curso Completo para proyectos anuales con archivos y carpetas.','Use PromptDocentes Resources for specific requests and PromptDocentes Complete Course for annual projects with files and folders.'],
   tutorialInstallTitle:['Comprueba primero la compatibilidad','Check compatibility first'],
   tutorialInstallText:['El ZIP funciona como skill independiente en Codex y en aplicaciones que admitan ese formato. No presupongas que se puede instalar desde ChatGPT web: con una cuenta personal gratuita usa directamente el prompt.','The ZIP works as a standalone skill in Codex and applications that support that format. Do not assume it can be installed from ChatGPT on the web: with a free personal account, use the prompt directly.'],
-  tutorialStartText:['Una vez instalada y reconocida por tu entorno, selecciona la skill. La sintaxis depende del producto: @ en ChatGPT y $ en Codex. Escribir su nombre sin instalarla no la activa.','Once installed and recognised by your environment, select the skill. Syntax depends on the product: @ in ChatGPT and $ in Codex. Writing its name without installing it does not activate it.'],
+  tutorialStartTitle:['Abre una conversación o proyecto nuevo','Open a new chat or project'],
+  tutorialStartText:['Activa la skill reconocida por tu entorno. Para un curso completo, trabaja en un proyecto con archivos persistentes y conserva la misma carpeta durante todo el proceso.','Activate the skill recognised by your environment. For a complete course, work in a project with persistent files and keep the same folder throughout the process.'],
   tutorialFallback:['💡 Si usas ChatGPT gratuito en el navegador o no aparece Skills/Plugins, no necesitas instalar nada: copia el prompt y úsalo directamente.','💡 If you use free ChatGPT in a browser or cannot see Skills/Plugins, you do not need to install anything: copy the prompt and use it directly.'],
+  fullCompatibilityGuide:['Consultar la guía completa','View the full guide'],
   coverageCompleteTitle:['Colecciones curriculares incorporadas','Built-in curriculum collections'],
   coverageCompleteText:['Infantil, Primaria, ESO y Bachillerato: transcripciones estructuradas de los anexos de 2023 por etapa, curso y materia. No se certifica aquí un texto consolidado con todas las modificaciones posteriores. Relaciones criterio–saber incorporadas en el piloto de Matemáticas de Primaria.','Early Years, Primary, Lower Secondary and Baccalaureate: structured transcriptions of the 2023 annexes by stage, year and subject. This is not certified as consolidated wording incorporating all subsequent amendments. Criterion–knowledge links are included in the Primary Mathematics pilot.'],
-  lastReviewed:['Última revisión del generador: 21/09/2026 · vigencia consolidada pendiente','Generator last reviewed: 21 September 2026 · consolidated currency pending']
+  lastReviewed:['Última revisión del generador: 30/09/2026 · vigencia consolidada pendiente','Generator last reviewed: 30 September 2026 · consolidated currency pending']
 });
 applyTranslations();
 const updateCurriculumSourceBeforeAudit=updateCurriculumSource;

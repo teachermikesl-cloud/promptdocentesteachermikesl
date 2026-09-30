@@ -5,7 +5,8 @@ const files = {
   html: readFileSync(new URL('../dist/index.html', import.meta.url), 'utf8'),
   app: readFileSync(new URL('../dist/app.js', import.meta.url), 'utf8'),
   css: readFileSync(new URL('../dist/styles.css', import.meta.url), 'utf8'),
-  beta: readFileSync(new URL('../dist/beta.html', import.meta.url), 'utf8')
+  beta: readFileSync(new URL('../dist/beta.html', import.meta.url), 'utf8'),
+  guide: readFileSync(new URL('../dist/guia.html', import.meta.url), 'utf8')
 };
 
 const required = [
@@ -28,6 +29,10 @@ const required = [
   ['skill tutorial', files.html, 'skillGuideDialog'],
   ['direct no-install route', files.html, 'Sin instalar nada'],
   ['free-account fallback', files.html, 'cuenta personal gratuita'],
+  ['separate complete-course route', files.html, 'id="courseSkillRoute"'],
+  ['complete-course compatibility table', files.guide, 'id="entorno"'],
+  ['complete-course guide', files.guide, 'id="curso-completo"'],
+  ['frequently asked questions', files.guide, 'id="preguntas"'],
   ['accessible handoff status', files.html, 'id="handoffStatus" role="status" aria-live="polite"'],
   ['beta test plan', files.beta, 'Pruebas recomendadas'],
   ['anonymous feedback warning', files.beta, 'no recoge ni almacena tus respuestas'],
@@ -43,6 +48,9 @@ const forbidden = [
 
 if (!existsSync(new URL('../dist/downloads/promptdocentes-recursos-beta.zip', import.meta.url))) {
   failures.push(['skill download package']);
+}
+if (!existsSync(new URL('../dist/downloads/promptdocentes-curso-completo-beta.zip', import.meta.url))) {
+  failures.push(['complete-course skill download package']);
 }
 
 if (failures.length || forbidden.length) {

@@ -6,6 +6,15 @@ La aplicación funciona completamente en el navegador: no exige registro, no env
 
 Entre los recursos disponibles se encuentra **Proyecto de curso completo**, un recorrido por fases para diseñar el mapa anual, validar una secuencia piloto y producir después las unidades, materiales, evaluación e inventario final sin confundirlo con una única programación anual. El prompt solicita también una vista docente atractiva con índice inicial, carpetas numeradas, iconos acompañados de texto y documentos accesibles con identidad propia.
 
+La guía pública distingue ahora el entorno recomendado según el encargo: chat normal para recursos concretos y **Codex con PromptDocentes Curso Completo** para proyectos anuales que necesiten carpetas, archivos editables, reanudación y validaciones. La ruta directa sigue funcionando sin instalar nada.
+
+## Skills disponibles
+
+- `promptdocentes-recursos-beta.zip`: ejecuta recursos individuales y encargos educativos concretos.
+- `promptdocentes-curso-completo-beta.zip`: organiza proyectos anuales por hitos y genera una entrega verificable. En esta beta incluye paquetes curriculares específicos de Matemáticas y Educación Física de 1.º ESO; otras materias pueden requerir preparar o verificar su paquete curricular.
+
+Una skill de Codex no equivale a un GPT personalizado ni garantiza compatibilidad con ChatGPT web. La propia guía ofrece una tabla de compatibilidad y una ruta sin instalación para cuentas o productos que no reconozcan estos paquetes.
+
 ## Estado curricular
 
 - Infantil, Primaria, ESO y Bachillerato: colecciones curriculares estructuradas incorporadas.
