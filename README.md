@@ -11,7 +11,7 @@ La guía pública distingue ahora el entorno recomendado según el encargo: chat
 ## Skills disponibles
 
 - `promptdocentes-recursos-beta.zip`: ejecuta recursos individuales y encargos educativos concretos.
-- `promptdocentes-curso-completo-beta.zip`: organiza proyectos anuales por hitos y genera una entrega verificable. En esta beta incluye paquetes curriculares específicos de Matemáticas y Educación Física de 1.º ESO, además de una base estructurada de Lengua Castellana y Literatura de 3.º de Primaria preparada para el siguiente piloto. Esta última conserva avisos de verificación pendientes y no debe presentarse todavía como un curso completo validado.
+- `promptdocentes-curso-completo-beta.zip`: organiza proyectos anuales por hitos y genera una entrega verificable. En esta beta incluye paquetes curriculares específicos de Matemáticas y Educación Física de 1.º ESO, además de una base estructurada de Lengua Castellana y Literatura de 3.º de Primaria con el marco normativo oficial contrastado el 3 de octubre de 2026. Su mapa anual cubre los 22 criterios, pero todavía requiere revisar la vinculación pedagógica criterio–saber y validar una secuencia piloto.
 
 Una skill de Codex no equivale a un GPT personalizado ni garantiza compatibilidad con ChatGPT web. La propia guía ofrece una tabla de compatibilidad y una ruta sin instalación para cuentas o productos que no reconozcan estos paquetes.
 
