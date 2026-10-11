@@ -1,0 +1,36 @@
+name: Avisar de un problema en PromptDocentes
+description: Comunica un error reproducible de la web sin datos personales.
+title: "[Incidencia] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Este aviso será público. No incluyas nombres, correos, información del alumnado, archivos privados ni un prompt que contenga datos personales. Si participas en una prueba por invitación, puedes entregar tus notas a la persona que te invitó.
+  - type: input
+    id: version
+    attributes:
+      label: Versión visible de PromptDocentes
+      placeholder: "Ejemplo: beta 0.9.11"
+    validations:
+      required: true
+  - type: input
+    id: entorno
+    attributes:
+      label: Dispositivo y navegador
+      placeholder: "Ejemplo: móvil Android, Chrome"
+    validations:
+      required: true
+  - type: textarea
+    id: pasos
+    attributes:
+      label: Pasos para repetir el problema
+      description: Describe selecciones ficticias; evita información personal.
+      placeholder: "1. Elegí...\n2. Pulsé...\n3. Observé..."
+    validations:
+      required: true
+  - type: textarea
+    id: resultado
+    attributes:
+      label: Qué esperabas y qué ocurrió
+    validations:
+      required: true
