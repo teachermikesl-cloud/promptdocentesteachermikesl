@@ -667,6 +667,7 @@ generatePrompt=function(){
 };
 Object.assign(translations,{
   visualStyleTitle:['Estilo visual de los documentos','Document visual style'],
+  installStepsLink:['Instalación paso a paso y comprobación de la skill →','Step-by-step skill installation and verification →'],
   visualStyleHelp:['Todos mantienen contraste, legibilidad e identidad diferenciada por tipo de documento.','All options preserve contrast, readability and a distinct identity for each document type.'],
   visualStyleProfessional:['Profesional','Professional'],
   visualStyleProfessionalHelp:['Sobrio, claro e institucional.','Restrained, clear and institutional.'],

@@ -1,0 +1,53 @@
+PROMPTDOCENTES — HOJA DE PRUEBA DOCENTE
+Versión de la ronda: 11/10/2026. Duración: 20–30 minutos; instalación opcional: 15 minutos adicionales.
+Web: https://teachermikesl-cloud.github.io/promptdocentesteachermikesl/
+Guía: https://teachermikesl-cloud.github.io/promptdocentesteachermikesl/guia.html
+
+Usa ejemplos inventados. No incluyas datos del alumnado, contraseñas ni correos en este informe.
+Envía tus notas por el canal de la persona que te invitó. La web no las recibe ni guarda.
+
+CÓDIGO DE PARTICIPANTE (B01, B02...):
+FECHA / ETAPA / MATERIA:
+DISPOSITIVO / SISTEMA / NAVEGADOR Y VERSIÓN:
+IA UTILIZADA Y TIPO DE CUENTA (sin identificadores):
+VERSIÓN VISIBLE DE PROMPTDOCENTES:
+
+1. CREA UNA SESIÓN SIN AYUDA (obligatoria)
+Elige etapa, curso y materia; solicita una sesión realista. Genera y copia el prompt.
+Pégalo entero en una conversación nueva y valora si el resultado se puede usar tras revisarlo.
+Resultado: completado sin ayuda / con ayuda / bloqueado / no realizado.
+Minutos / dudas / utilidad del recurso (1–5):
+
+2. FUENTES O CURRÍCULO (elige una)
+A: anuncia un texto propio breve; adjúntalo o pégalo en la IA. Comprueba que lo utiliza.
+B: mapa curricular de Matemáticas de 3.º de Primaria. Comprueba alcance, códigos,
+separación entre redacción oficial y resumen, y las limitaciones de vigencia.
+Resultado / ayuda / minutos / observaciones:
+
+3. FIRMA, ESTILO Y NAVEGACIÓN (obligatoria)
+Usa una firma ficticia, cambia de estilo, vuelve atrás y regenera.
+Comprueba que el prompt refleja las elecciones y conserva los datos al volver atrás.
+Pulsa Empezar de nuevo: cancela primero (conserva datos); confirma después (vacía datos).
+Resultado / pasos que fallaron:
+
+4. CURSO COMPLETO (asignada a algunos participantes)
+Solicita Educación Física de 1.º de ESO. Pega el prompt y revisa SOLO el mapa anual.
+¿Entiendes cuándo aprobar el mapa, el piloto y los bloques? ¿La IA esperó aprobación?
+¿Entiendes qué entorno necesitas para recibir archivos y carpetas?
+Resultado / observaciones:
+
+5. SKILL (opcional, ordenador compatible)
+Sigue la guía de instalación. Identifica el SKILL.md que se ha cargado.
+No marques como instalada una skill solo por descargar el ZIP o porque la IA diga su nombre.
+Producto y versión / skill utilizada / comprobación / minutos / ayuda necesaria:
+
+PREGUNTAS FINALES
+¿Puedes explicar con tus palabras qué hace la web y qué hace la IA?
+¿Sabes dónde adjuntar documentos y qué hacer si no puedes instalar la skill?
+¿Sabes que una cuenta o suscripción de IA no está incluida?
+¿Qué te impidió avanzar? Pasos exactos / esperado / obtenido:
+Facilidad (1–5) / utilidad (1–5) / confianza (1–5):
+¿Lo volverías a usar? ¿Para qué?
+¿Qué mejora pedirías primero?
+Opcional, sin compromiso: ¿preferirías gratuito, pago por paquete o acceso anual?
+Si pagarías, ¿qué tendría que incluir y qué importe anual te parecería razonable?
