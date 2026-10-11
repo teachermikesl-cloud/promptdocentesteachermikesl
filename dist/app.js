@@ -599,7 +599,7 @@ Object.assign(translations,{
   resetDialogText:['Se vaciará el formulario y volverás al primer paso. El prompt actual dejará de estar disponible en la página.','The form will be cleared and you will return to the first step. The current prompt will no longer be available on the page.'],
   cancel:['Cancelar','Cancel'],
   confirmReset:['Sí, empezar de nuevo','Yes, start again'],
-  betaBadge:['🧪 Beta pública · v0.9','🧪 Public beta · v0.9'],
+  betaBadge:['🧪 Beta pública · v0.9.10','🧪 Public beta · v0.9.10'],
   userGuide:['Guía de uso','User guide'],
   betaGuide:['Ayúdanos a mejorar','Help us improve'],
   infoTitle:['Antes de usar PromptDocentes','Before using PromptDocentes'],
@@ -638,3 +638,41 @@ updateCurriculumSource=function(){
   }
 };
 updateCurriculumSource();
+
+/* Visual identity choice for generated documents. */
+function visualStyleLabel(value,isEn){
+  const labels={professional:['Profesional','Professional'],warm:['Cercano','Warm and approachable'],expressive:['Visual','Visual and expressive']};
+  return (labels[value]||labels.professional)[isEn?1:0];
+}
+function visualStylePolicy(value,isEn){
+  const choice=value||'professional';
+  const direction={
+    professional:isEn?'Use a restrained institutional composition, strong hierarchy, generous spacing and precise tables.':'Usa una composición institucional sobria, jerarquía clara, espacio generoso y tablas precisas.',
+    warm:isEn?'Use a warm and approachable composition, soft shapes and friendly colours while preserving professional clarity.':'Usa una composición cercana, formas suaves y colores cálidos sin perder claridad profesional.',
+    expressive:isEn?'Use a more expressive composition with stronger colour and functional visual anchors, avoiding decorative clutter.':'Usa una composición más expresiva, con mayor presencia del color y apoyos visuales funcionales, evitando la decoración innecesaria.'
+  }[choice];
+  const common=isEn?'Give every document family its own stable accent colour, icon and layout archetype while keeping shared typography and navigation. The annual programme, term plans, teacher guides, session guide, preparation checklist, learner workbook, assessment, cards, support, enrichment, accessibility and common resources must be distinguishable at a glance. Do not communicate meaning by colour alone; maintain sufficient contrast and readable greyscale printing.':'Asigna a cada familia documental un color de acento, icono y arquetipo de maquetación estables, manteniendo tipografía y navegación comunes. La programación anual, los planes trimestrales, las guías docentes, la guía por sesiones, la preparación, el cuaderno del alumnado, la evaluación, las tarjetas, el refuerzo, la ampliación, la accesibilidad y los recursos comunes deben distinguirse de un vistazo. No comuniques información únicamente mediante el color; conserva contraste suficiente y legibilidad al imprimir en escala de grises.';
+  return `${direction}\n- ${common}`;
+}
+const generatePromptBeforeVisualStyle=generatePrompt;
+generatePrompt=function(){
+  generatePromptBeforeVisualStyle();
+  const v=values(),isEn=v.materialLanguage==='English',label=visualStyleLabel(v.visualStyle,isEn),policy=visualStylePolicy(v.visualStyle,isEn);
+  let p=$('#promptOutput').value.replace('generator_version: beta-0.9.9','generator_version: beta-0.9.10');
+  p=p.replace('generator_version: beta-0.9.10',`generator_version: beta-0.9.10\nvisual_style: ${v.visualStyle||'professional'}`);
+  const block=`\n# ${isEn?'DOCUMENT VISUAL IDENTITY':'IDENTIDAD VISUAL DE LOS DOCUMENTOS'}\n- ${isEn?'Selected style':'Estilo seleccionado'}: ${label}\n- ${policy}\n- ${isEn?'Place the chosen teacher name or professional signature in a discreet header and keep it separate from the PromptDocentes creator credit.':'Sitúa el nombre o firma profesional elegida por el docente en una cabecera discreta y mantenla separada del crédito de creación de PromptDocentes.'}\n`;
+  const outputHeading=/\n# (SALIDA ESPERADA|EXPECTED OUTPUT)\n/;
+  p=outputHeading.test(p)?p.replace(outputHeading,`${block}\n# $1\n`):`${p.trimEnd()}\n${block}`;
+  $('#promptOutput').value=p;$('#promptMeta').textContent=`${p.split(/\s+/).length} ${state.lang?'words':'palabras'} · ${v.ai||'ChatGPT / Codex'}`;
+};
+Object.assign(translations,{
+  visualStyleTitle:['Estilo visual de los documentos','Document visual style'],
+  visualStyleHelp:['Todos mantienen contraste, legibilidad e identidad diferenciada por tipo de documento.','All options preserve contrast, readability and a distinct identity for each document type.'],
+  visualStyleProfessional:['Profesional','Professional'],
+  visualStyleProfessionalHelp:['Sobrio, claro e institucional.','Restrained, clear and institutional.'],
+  visualStyleWarm:['Cercano','Warm'],
+  visualStyleWarmHelp:['Amable, cálido y muy accesible.','Friendly, warm and highly accessible.'],
+  visualStyleExpressive:['Visual','Visual'],
+  visualStyleExpressiveHelp:['Más color y apoyos gráficos funcionales.','More colour and functional visual anchors.']
+});
+applyTranslations();
