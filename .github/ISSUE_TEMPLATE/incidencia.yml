@@ -10,7 +10,7 @@ body:
     id: version
     attributes:
       label: Versión visible de PromptDocentes
-      placeholder: "Ejemplo: beta 0.9.11"
+      placeholder: "Ejemplo: beta 0.9.12"
     validations:
       required: true
   - type: input
